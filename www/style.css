@@ -1,0 +1,16 @@
+body {
+  font-family: Rajdhani, DIN, sans-serif;
+}
+.main-header .logo {
+  font-family: Rajdhani, DIN, sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.info-box-text {
+    font-size: 25px;
+}
+
+.info-box-number {
+    font-size: 20px;
+}
