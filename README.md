@@ -7,4 +7,4 @@
 </p>
 
 This dashboard visualizes different statistics about video games sales from year 1980 to 2016.
-A live versio of the dashboard can be found [here](https://shiny.wahidkhan.me/gamesDashboard/)
+A live versio of the dashboard can be found [here](https://shiny.wahidkhan.me/app_direct/games)
