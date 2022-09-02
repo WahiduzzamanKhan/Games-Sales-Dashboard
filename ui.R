@@ -3,7 +3,7 @@ ui <- dashboardPage(
     title = "Video Games Dahsboard",
     titleWidth = "300px"
   ),
-  
+
   dashboardSidebar(
     width = "300px",
     sidebarMenu(
@@ -12,10 +12,11 @@ ui <- dashboardPage(
       menuItem(text = "Top Genres", tabName = "genres")
     )
   ),
-  
+
   dashboardBody(
     tags$link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Rajdhani"),
     tags$link(rel="stylesheet", href="style.css"),
+    add_busy_bar(color = "#11174B"),
     tabItems(
       tabItem(
         tabName = "overview",
@@ -30,7 +31,7 @@ ui <- dashboardPage(
             plotlyOutput("topGames2016")
           )
         ),
-        
+
         fluidRow(
           box(
             title = "Number of Games Released Per Year", solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 6,
@@ -41,7 +42,7 @@ ui <- dashboardPage(
             plotlyOutput("topGenresAllTime")
           )
         ),
-        
+
         fluidRow(
           box(
             title = "Top 10 Publishers of All Time", solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 6,
@@ -53,7 +54,7 @@ ui <- dashboardPage(
           )
         )
       ),
-      
+
       tabItem(
         tabName = "games",
         fluidRow(
@@ -77,7 +78,7 @@ ui <- dashboardPage(
           )
         )
       ),
-      
+
       tabItem(
         tabName = "genres",
         fluidRow(
@@ -90,7 +91,7 @@ ui <- dashboardPage(
             uiOutput("topGenreFilters")
           )
         ),
-        
+
         fluidRow(
           box(
             title = 'Genre wise games proportion', solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 6, height = 650,
