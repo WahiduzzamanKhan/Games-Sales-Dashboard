@@ -36,7 +36,7 @@ server <- function(input, output){
       )
     )
   })
-  
+
   output$topGamesAllTime <- renderPlotly({
     data <- head(VGData %>% arrange(desc(Global_Sales)), 10)
     data$Global_Sales <- data$Global_Sales*1000000
@@ -52,7 +52,7 @@ server <- function(input, output){
         xaxis = list(title = "Game")
       )
   })
-  
+
   output$topGames2016 <- renderPlotly({
     data <- head(VGData %>% arrange(desc(Global_Sales)) %>% filter(Year==2016), 10)
     data$Global_Sales <- data$Global_Sales*1000000
@@ -68,7 +68,7 @@ server <- function(input, output){
         xaxis = list(title = "Game")
       )
   })
-  
+
   output$topGenresAllTime <- renderPlotly({
     data <- head(
       VGData %>%
@@ -91,7 +91,7 @@ server <- function(input, output){
         xaxis = list(title = "Genre")
       )
   })
-  
+
   output$topPlatformsAllTime <- renderPlotly({
     data <- head(
       VGData %>%
@@ -114,7 +114,7 @@ server <- function(input, output){
         xaxis = list(title = "Platform")
       )
   })
-  
+
   output$topPublishersAllTime <- renderPlotly({
     data <- head(
       VGData %>%
@@ -123,7 +123,7 @@ server <- function(input, output){
         ungroup() %>%
         arrange(desc(Global_Sales)),
       10
-    ) 
+    )
     data$Global_Sales <- data$Global_Sales*1000000
     plot_ly(
       data = data,
@@ -137,7 +137,7 @@ server <- function(input, output){
         xaxis = list(title = "Publisher")
       )
   })
-  
+
   output$numberOfGamesPerYear <- renderPlotly({
     plot_ly(
       data = VGData %>% group_by(Year) %>% count() %>% ungroup(),
@@ -152,7 +152,7 @@ server <- function(input, output){
       )
   })
   ##### end overview #####
-  
+
   ##### Games #####
   output$topGameFilters <- renderUI(
     tagList(
@@ -165,26 +165,26 @@ server <- function(input, output){
       ),
       pickerInput(
         inputId = "topGamePlatforms",
-        label = "Select platforms", 
+        label = "Select platforms",
         choices = unique(VGData$Platform),
         selected = unique(VGData$Platform),
         options = list(
           `actions-box` = TRUE,
           `live-search` = TRUE,
           size = 6
-        ), 
+        ),
         multiple = TRUE
       ),
       pickerInput(
         inputId = "topGameGenres",
-        label = "Select genres", 
+        label = "Select genres",
         choices = unique(VGData$Genre),
         selected = unique(VGData$Genre),
         options = list(
           `actions-box` = TRUE,
           `live-search` = TRUE,
           size = 6
-        ), 
+        ),
         multiple = TRUE
       ),
       selectInput(
@@ -196,13 +196,13 @@ server <- function(input, output){
       )
     )
   )
-  
+
   output$top10GamesFiltered <- renderPlotly({
     data <- VGData %>%
       filter(Year >= input$topGameYears[1] & Year <= input$topGameYears[2]) %>%
       filter(Platform %in% input$topGamePlatforms) %>%
       filter(Genre %in% input$topGameGenres)
-    
+
     if(input$topGameRegion=="North America"){
       data <- data %>%
       mutate(Sales=NA_Sales*1000000) %>%
@@ -228,7 +228,7 @@ server <- function(input, output){
         mutate(Sales=Global_Sales) %>%
         arrange(desc(Sales))
     }
-    
+
     plot_ly(
       data = data[1:10,],
       x = ~reorder(Name, desc(Sales)),
@@ -241,31 +241,31 @@ server <- function(input, output){
         xaxis = list(title = "Game")
       )
   })
-  
+
   output$topGameYearlyFilters <- renderUI(
     tagList(
       pickerInput(
         inputId = "topGameYearlyPlatforms",
-        label = "Select platforms", 
+        label = "Select platforms",
         choices = unique(VGData$Platform),
         selected = unique(VGData$Platform),
         options = list(
           `actions-box` = TRUE,
           `live-search` = TRUE,
           size = 6
-        ), 
+        ),
         multiple = TRUE
       ),
       pickerInput(
         inputId = "topGameYearlyGenres",
-        label = "Select genres", 
+        label = "Select genres",
         choices = unique(VGData$Genre),
         selected = unique(VGData$Genre),
         options = list(
           `actions-box` = TRUE,
           `live-search` = TRUE,
           size = 6
-        ), 
+        ),
         multiple = TRUE
       ),
       selectInput(
@@ -277,12 +277,12 @@ server <- function(input, output){
       )
     )
   )
-  
+
   output$topGamesPerYear <- renderDT({
-    data <- VGData %>% 
+    data <- VGData %>%
       filter(Platform %in% input$topGameYearlyPlatforms) %>%
       filter(Genre %in% input$topGameYearlyGenres)
-    
+
     if(input$topGameYearlyRegion=="North America"){
       data <- data %>%
         mutate(Sales=NA_Sales)
@@ -303,12 +303,12 @@ server <- function(input, output){
       data <- data %>%
         mutate(Sales=Global_Sales)
     }
-      
+
     data <- data %>%
       arrange(Year, desc(Sales)) %>%
       filter(!duplicated(Year)) %>%
       select(Year, Name, everything(), -Rank, -Sales)
-    
+
     datatable(
       data = data,
       style = 'bootstrap',
@@ -328,7 +328,7 @@ server <- function(input, output){
     )
   })
   ##### end Games #####
-  
+
   ##### Genres #####
   output$topGenreFilters <- renderUI(
     tagList(
@@ -341,14 +341,14 @@ server <- function(input, output){
       ),
       pickerInput(
         inputId = "topGenrePlatforms",
-        label = "Select platforms", 
+        label = "Select platforms",
         choices = unique(VGData$Platform),
         selected = unique(VGData$Platform),
         options = list(
           `actions-box` = TRUE,
           `live-search` = TRUE,
           size = 6
-        ), 
+        ),
         multiple = TRUE
       ),
       selectInput(
@@ -360,12 +360,12 @@ server <- function(input, output){
       )
     )
   )
-  
+
   output$top10GenreFiltered <- renderPlotly({
     data <- VGData %>%
       filter(Year >= input$topGenreYears[1] & Year <= input$topGenreYears[2]) %>%
       filter(Platform %in% input$topGenrePlatforms)
-    
+
     if(input$topGenreRegion=="North America"){
       data <- data %>%
         mutate(Sales=NA_Sales*1000000)
@@ -387,13 +387,13 @@ server <- function(input, output){
       data <- data %>%
         mutate(Sales=Global_Sales)
     }
-    
+
     data <- data %>%
       group_by(Genre) %>%
       summarise(Sales = sum(Sales, na.rm = T)) %>%
       ungroup() %>%
       arrange(desc(Sales))
-    
+
     plot_ly(
       data = data[1:10,],
       x = ~reorder(Genre, desc(Sales)),
@@ -406,23 +406,35 @@ server <- function(input, output){
         xaxis = list(title = "Genre")
       )
   })
-  
-  output$genreGameCount <- renderEcharts4r(
+
+  output$genreGameCount <- renderEcharts4r({
+    req(input$topGenreYears)
+    req(input$topGenrePlatforms)
+    req(input$topGenreRegion)
+
     VGData %>%
+      filter(Year >= input$topGenreYears[1] & Year <= input$topGenreYears[2]) %>%
+      filter(Platform %in% input$topGenrePlatforms) %>%
       group_by(Genre) %>%
       count() %>%
       ungroup() %>%
-      e_charts(Genre) %>% 
+      e_charts(Genre) %>%
       e_pie(n, roseType = "radius")
-  )
-  
-  output$genreGameSales <- renderEcharts4r(
+  })
+
+  output$genreGameSales <- renderEcharts4r({
+    req(input$topGenreYears)
+    req(input$topGenrePlatforms)
+    req(input$topGenreRegion)
+
     VGData %>%
+      filter(Year >= input$topGenreYears[1] & Year <= input$topGenreYears[2]) %>%
+      filter(Platform %in% input$topGenrePlatforms) %>%
       group_by(Genre) %>%
       summarise(Sales=sum(Global_Sales, na.rm = TRUE)) %>%
       ungroup() %>%
-      e_charts(Genre) %>% 
+      e_charts(Genre) %>%
       e_pie(Sales, roseType = "radius")
-  )
+  })
   ##### End Genres #####
 }
