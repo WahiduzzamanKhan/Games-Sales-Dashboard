@@ -24,33 +24,33 @@ ui <- dashboardPage(
         fluidRow(
           box(
             title = "Top 10 Games of All Time", solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 6,
-            plotlyOutput("topGamesAllTime")
+            withSpinner(plotlyOutput("topGamesAllTime"), type = 8)
           ),
           box(
             title = "Top 10 Games of 2016", solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 6,
-            plotlyOutput("topGames2016")
+            withSpinner(plotlyOutput("topGames2016"), type = 8)
           )
         ),
 
         fluidRow(
           box(
             title = "Number of Games Released Per Year", solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 6,
-            plotlyOutput("numberOfGamesPerYear")
+            withSpinner(plotlyOutput("numberOfGamesPerYear"), type = 8)
           ),
           box(
             title = "Top 10 Genres of All Time", solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 6,
-            plotlyOutput("topGenresAllTime")
+            withSpinner(plotlyOutput("topGenresAllTime"), type = 8)
           )
         ),
 
         fluidRow(
           box(
             title = "Top 10 Publishers of All Time", solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 6,
-            plotlyOutput("topPublishersAllTime")
+            withSpinner(plotlyOutput("topPublishersAllTime"), type = 8)
           ),
           box(
             title = "Top 10 Platforms of All Time", solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 6,
-            plotlyOutput("topPlatformsAllTime")
+            withSpinner(plotlyOutput("topPlatformsAllTime"), type = 8)
           )
         )
       ),
@@ -60,21 +60,21 @@ ui <- dashboardPage(
         fluidRow(
           box(
             title = 'Top 10 games by Year, Platform, Region and Genre', solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 8, height = 500,
-            plotlyOutput("top10GamesFiltered")
+            withSpinner(plotlyOutput("top10GamesFiltered"), type = 8)
           ),
           box(
             title = 'Graph Filters', solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 4, height = 500,
-            uiOutput("topGameFilters")
+            withSpinner(uiOutput("topGameFilters"), type = 8)
           )
         ),
         fluidRow(
           box(
             title = 'Top game per year', solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 8,
-            DTOutput("topGamesPerYear")
+            withSpinner(DTOutput("topGamesPerYear"), type = 8)
           ),
           box(
             title = 'Table Filters', solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 4, height = 500,
-            uiOutput("topGameYearlyFilters")
+            withSpinner(uiOutput("topGameYearlyFilters"), type = 8)
           )
         )
       ),
@@ -84,22 +84,22 @@ ui <- dashboardPage(
         fluidRow(
           box(
             title = 'Top 10 Genre by Year, Platform and Region', solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 8, height = 500,
-            plotlyOutput("top10GenreFiltered")
+            withSpinner(plotlyOutput("top10GenreFiltered"), type = 8)
           ),
           box(
             title = 'Graph Filters', solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 4, height = 500,
-            uiOutput("topGenreFilters")
+            withSpinner(uiOutput("topGenreFilters"), type = 8)
           )
         ),
 
         fluidRow(
           box(
             title = 'Genre wise games proportion', solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 6, height = 650,
-            echarts4rOutput("genreGameCount", height = '600px')
+            withSpinner(echarts4rOutput("genreGameCount", height = '600px'), type = 8)
           ),
           box(
             title = 'Genre wise sales proportion', solidHeader = TRUE, collapsible = FALSE, status = "primary", width = 6, height = 650,
-            echarts4rOutput("genreGameSales", height = '600px')
+            withSpinner(echarts4rOutput("genreGameSales", height = '600px'), type = 8)
           )
         )
       )

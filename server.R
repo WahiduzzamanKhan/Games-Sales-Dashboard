@@ -288,8 +288,6 @@ server <- function(input, output){
     req(input$topGameYearlyPlatforms)
     req(input$topGameYearlyRegion)
 
-    Sys.sleep(5)
-
     data <- VGData %>%
       filter(Platform %in% input$topGameYearlyPlatforms) %>%
       filter(Genre %in% input$topGameYearlyGenres)
