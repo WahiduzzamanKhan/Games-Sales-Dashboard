@@ -198,6 +198,11 @@ server <- function(input, output){
   )
 
   output$top10GamesFiltered <- renderPlotly({
+    req(input$topGameYears)
+    req(input$topGamePlatforms)
+    req(input$topGameGenres)
+    req(input$topGameRegion)
+
     data <- VGData %>%
       filter(Year >= input$topGameYears[1] & Year <= input$topGameYears[2]) %>%
       filter(Platform %in% input$topGamePlatforms) %>%
@@ -279,6 +284,10 @@ server <- function(input, output){
   )
 
   output$topGamesPerYear <- renderDT({
+    req(input$topGameYearlyGenres)
+    req(input$topGameYearlyPlatforms)
+    req(input$topGameYearlyRegion)
+
     data <- VGData %>%
       filter(Platform %in% input$topGameYearlyPlatforms) %>%
       filter(Genre %in% input$topGameYearlyGenres)
@@ -305,8 +314,10 @@ server <- function(input, output){
     }
 
     data <- data %>%
-      arrange(Year, desc(Sales)) %>%
-      filter(!duplicated(Year)) %>%
+      group_by(Year) %>%
+      filter(Sales == max(Sales)) %>%
+      ungroup() %>%
+      arrange(desc(Year)) %>%
       select(Year, Name, everything(), -Rank, -Sales)
 
     datatable(
@@ -362,6 +373,10 @@ server <- function(input, output){
   )
 
   output$top10GenreFiltered <- renderPlotly({
+    req(input$topGenreYears)
+    req(input$topGenrePlatforms)
+    req(input$topGenreRegion)
+
     data <- VGData %>%
       filter(Year >= input$topGenreYears[1] & Year <= input$topGenreYears[2]) %>%
       filter(Platform %in% input$topGenrePlatforms)
