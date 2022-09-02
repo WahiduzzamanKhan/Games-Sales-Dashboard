@@ -331,7 +331,7 @@ server <- function(input, output){
         info = TRUE,
         bLengthChange = FALSE,
         searching = FALSE,
-        scrollY= "370",
+        scrollY= 370,
         scroller = TRUE
       ),
       extensions = list('Responsive'=NULL, "Scroller"=NULL),
