@@ -14,6 +14,7 @@ ui <- dashboardPage(
   ),
 
   dashboardBody(
+    tags$head(includeHTML("google-analytics.html")),
     tags$link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Rajdhani"),
     tags$link(rel="stylesheet", href="style.css"),
     add_busy_bar(color = "#11174B"),
